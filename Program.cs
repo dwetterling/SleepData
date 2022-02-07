@@ -7,6 +7,7 @@ namespace SleepData
     {
         static void Main(string[] args)
         {
+            String file = "data.txt";
             // ask for input
             Console.WriteLine("Enter 1 to create data file.");
             Console.WriteLine("Enter 2 to parse data.");
@@ -59,8 +60,32 @@ namespace SleepData
             else if (resp == "2")
             {
                 // TODO: parse data file
+                if (File.Exists(file)){
+                    StreamReader sr = new StreamReader(file);
+                    while(!sr.EndOfStream){
+                        string line = sr.ReadLine();
+                        //seperate the week, and each days hours
+                        string[] seperateStrings = {",","|"};
+                        string[] Weeks = line.Split(seperateStrings, System.StringSplitOptions.RemoveEmptyEntries);
+                       //Remove date from array
+                       var Date = (Weeks[0]);
+                       //change date string to DateTime
+                       var Week = DateTime.Parse(Date);
+                        
+                        //output each week, and hours for each night
+                        Console.WriteLine("Week of {0:MMM}, {0:dd}, {0:yyyy}", Week);
+                        Console.WriteLine("Mo Tu We Th Fr Sa Su");
+                        Console.WriteLine("-- -- -- -- -- -- --");
+                        Console.WriteLine("{1} {2}  {3}  {4}  {5}  {6} {7}", Weeks);
+                        
+                    }
+                    sr.Close();
+                }
+                
+                
+                    }
 
             }
         }
     }
-}
+
